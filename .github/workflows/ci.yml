@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main 
+  pull_request:
+
+defaults:
+  run:
+    working-directory: grpc-services/protobufs
+
+jobs:
+  protolint:
+    name: protolint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: plexsystems/protolint-action@v0.4.0 
+
+  clang-format:
+    name: clang-format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: DoozyX/clang-format-lint-action@v0.13
+        with: 
+          extensions: "proto"
+          clangFormatVersion: 12
